@@ -26,80 +26,37 @@ Using the Kaggle API and pandas, the data was extracted and cleaned. The ETL pro
 
 
 ##### 2. Top 5 Highest Selling Products in Each Region
-```sql
-WITH cte AS (
-    SELECT region, product_id, SUM(selling_price) AS sales
-    FROM df_orders
-    GROUP BY region, product_id
-)
-SELECT * FROM (
-    SELECT *, ROW_NUMBER() OVER(PARTITION BY region ORDER BY sales DESC) AS rn
-    FROM cte
-) a
-WHERE rn <= 5;
-```
+
+![2](https://github.com/teapositve/Orders_Data_Analysis/assets/63927953/50b778cf-384d-4f5d-8801-7dd647712b5f)
+
+
 **Findings**: This query provided insights into regional preferences by identifying the top 5 products in each region.
 
 ##### 3. Month-over-Month Growth Comparison for 2022 and 2023 Sales
-```sql
-WITH cte AS (
-    SELECT YEAR(order_date) AS order_year, MONTH(order_date) AS order_month, SUM(selling_price) AS sales
-    FROM df_orders
-    GROUP BY YEAR(order_date), MONTH(order_date)
-)
-SELECT 
-    order_month, 
-    SUM(CASE WHEN order_year = 2022 THEN sales ELSE 0 END) AS sales_2022,
-    SUM(CASE WHEN order_year = 2023 THEN sales ELSE 0 END) AS sales_2023
-FROM cte
-GROUP BY order_month
-ORDER BY order_month;
-```
+
+![3](https://github.com/teapositve/Orders_Data_Analysis/assets/63927953/721f8761-3f4d-4afd-949f-930227d89f8e)
+
 **Findings**: This analysis compared sales growth month-over-month between 2022 and 2023, revealing trends and identifying peak sales periods.
 
+
 ##### 4. Highest Sales Month for Each Category
-```sql
-WITH cte AS (
-    SELECT category, FORMAT(order_date, 'yyyy-MM') AS order_year_month, SUM(selling_price) AS sales
-    FROM df_orders
-    GROUP BY category, FORMAT(order_date, 'yyyy-MM')
-)
-SELECT * FROM (
-    SELECT *, ROW_NUMBER() OVER(PARTITION BY category ORDER BY sales DESC) AS rn 
-    FROM cte
-) a
-WHERE rn = 1;
-```
+
+![4](https://github.com/teapositve/Orders_Data_Analysis/assets/63927953/4a195a71-9993-4b40-9e9e-fa2ae09b1d0d)
+
 **Findings**: This query identified the month with the highest sales for each product category, providing insights into seasonal demand.
 
+
 ##### 5. Sub-Category with Highest Growth by Profit in 2023 Compared to 2022
-```sql
-WITH cte AS (
-    SELECT sub_category, YEAR(order_date) AS order_year, SUM(selling_price) AS sales
-    FROM df_orders
-    GROUP BY sub_category, YEAR(order_date)
-),
-cte2 AS (
-    SELECT 
-        sub_category, 
-        SUM(CASE WHEN order_year = 2022 THEN sales ELSE 0 END) AS sales_2022,
-        SUM(CASE WHEN order_year = 2023 THEN sales ELSE 0 END) AS sales_2023
-    FROM cte
-    GROUP BY sub_category
-)
-SELECT TOP 1 *, (sales_2023 - sales_2022) AS Growth
-FROM cte2
-ORDER BY (sales_2023 - sales_2022) DESC;
-```
+
+![5](https://github.com/teapositve/Orders_Data_Analysis/assets/63927953/12fcc4ee-386c-4c6c-867d-51654559ccc4)
+
 **Findings**: The sub-category with the highest profit growth in 2023 compared to 2022 was identified, highlighting key areas of business expansion.
+
+
 
 #### Conclusion
 
 The detailed analysis provided valuable insights into sales performance, regional preferences, and growth trends. These findings can be leveraged to optimize inventory management, tailor marketing strategies, and enhance overall business performance.
-
-#### Call to Action
-
-I encourage stakeholders to review these insights and consider the recommended actions to drive further growth and profitability. Feedback and suggestions are welcome to refine this analysis and continue delivering valuable business intelligence.
 
 ---
 
