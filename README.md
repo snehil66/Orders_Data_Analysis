@@ -19,9 +19,9 @@ Using the Kaggle API and pandas, the data was extracted and cleaned. The ETL pro
 #### SQL Analysis Queries and Findings
 
 ##### 1. Top 10 Highest Revenue Generating Products
-```sql
+
 ![1](https://github.com/teapositve/Orders_Data_Analysis/assets/63927953/0d4a879e-80ad-40c0-9cb4-e0337c9dc582)
-```
+
 **Findings**: The top 10 products based on revenue were identified, highlighting the most profitable items in the inventory.
 
 
