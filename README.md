@@ -26,6 +26,7 @@ GROUP BY product_id
 ORDER BY sales DESC;
 ```
 **Findings**: The top 10 products based on revenue were identified, highlighting the most profitable items in the inventory.
+![1](https://github.com/teapositve/Orders_Data_Analysis/assets/63927953/0d4a879e-80ad-40c0-9cb4-e0337c9dc582)
 
 ##### 2. Top 5 Highest Selling Products in Each Region
 ```sql
